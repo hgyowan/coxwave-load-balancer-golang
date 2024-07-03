@@ -66,3 +66,25 @@ type Node struct {
 	Index int
 	Mu    sync.Mutex
 }
+
+// Work
+// 해당 노드에 작업 수행
+func (n *Node) Work(r *Request) {
+	// usedByteSize 증가, requestCounts 증가
+	n.UsedByteSize += r.BodySize
+	n.RequestCounts++
+}
+
+// HealthCheck
+// 해당 노드에 할당 가능한 상태인지 검사
+func (n *Node) HealthCheck(r *Request) bool {
+	// 해당노드 1분 경과시 노드 Rate Limit 초기화
+	if time.Since(n.ResetTime) > time.Minute {
+		n.UsedByteSize = 0
+		n.RequestCounts = 0
+		n.ResetTime = time.Now()
+	}
+
+	// 현재 노드의 버퍼와 요청량이 request 가 왔을때 수용 가능한지 체크
+	return (n.UsedByteSize + r.BodySize <= n.BPM) && (n.RequestCounts + 1 <= n.RPM)
+}

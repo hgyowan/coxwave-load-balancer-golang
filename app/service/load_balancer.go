@@ -11,7 +11,7 @@ type loadBalancer struct {
 	mu    sync.Mutex
 }
 
-func (l *loadBalancer) Route(r *load_balancer.Request) {
+func (l *loadBalancer) Route(r *load_balancer.Request) (*load_balancer.Node, error){
 	panic("implement me")
 }
 

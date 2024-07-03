@@ -27,6 +27,7 @@ func (l *loadBalancer) Route(r *load_balancer.Request) (*load_balancer.Node, err
 			heap.Push(&l.nodes, node)
 			return node, nil
 		}
+
 		node.Mu.Unlock()
 	}
 

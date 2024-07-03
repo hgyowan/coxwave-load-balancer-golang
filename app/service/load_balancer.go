@@ -7,7 +7,7 @@ import (
 )
 
 type loadBalancer struct {
-	nodes load_balancer.Nodes
+	nodes load_balancer.NodeHeap
 	mu    sync.Mutex
 }
 
@@ -15,7 +15,7 @@ func (l *loadBalancer) Route(r *load_balancer.Request) {
 	panic("implement me")
 }
 
-func NewLoadBalancer(nodes load_balancer.Nodes) domain.LoadBalancerService {
+func NewLoadBalancer(nodes load_balancer.NodeHeap) domain.LoadBalancerService {
 	return &loadBalancer{
 		nodes: nodes,
 	}

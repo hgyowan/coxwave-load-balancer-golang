@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Nodes []*Node
+type NodeHeap []*Node
 
 type Node struct {
 	// 노드 주소

@@ -5,6 +5,8 @@ import (
 	"time"
 )
 
+type Nodes []*Node
+
 type Node struct {
 	// 노드 주소
 	Address string
